@@ -67,5 +67,33 @@ const productSchema = new mongoose.Schema({
     },
 }, { timestamps: true })
 
-export const User = mongoose.models.User || mongoose.model("User", userSchema)
-export const Product = mongoose.models.Product || mongoose.model("Product", productSchema)
+const transactionSchema = new mongoose.Schema({
+    name: { type: String, required: true, min: 3 },
+    amount: { type: Number, required: true },
+    event: { type: String, required: true },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }
+}, { timestamps: true })
+
+transactionSchema.statics.calculateTotalAmount = async function () {
+    const result = await this.aggregate([
+        {
+            $group: {
+                _id: null,
+                totalAmount: { $sum: '$amount' }
+            }
+        }
+    ])
+
+    if (result.length > 0) {
+        return result[0].totalAmount;
+    } else {
+        return 0
+    }
+}
+export const Transaction = mongoose.models.Transaction || mongoose.model("Transaction", transactionSchema),
+    User = mongoose.models.User || mongoose.model("User", userSchema),
+    Product = mongoose.models.Product || mongoose.model("Product", productSchema)

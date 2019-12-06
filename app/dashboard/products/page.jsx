@@ -39,7 +39,6 @@ const Products = async ({ searchParams }) => {
                                     <Image src={product.img || "/astronaute-no-bg.png"} width={40} height={40} className={styles.productImage} />
                                     {product.title}
                                 </div>
-
                             </td>
                             <td>{product.desc}</td>
                             <td>$ {product.price}</td>
