@@ -6,10 +6,16 @@
 }
 
 .button {
-    padding: 5px 10px;
+    padding: 5px 15px;
     cursor: pointer;
+    border: none !important;
+    border-radius: .4rem;
+    background-color: teal;
+    color: var(--text);
 }
 
 .button:disabled {
+    background-color: rgba(123, 163, 163, 0.473);
+    color: rgba(165, 42, 42, 0.555);
     cursor: not-allowed;
 }
