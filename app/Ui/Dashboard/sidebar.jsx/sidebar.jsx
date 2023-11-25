@@ -1,5 +1,7 @@
 
 
+import Image from "next/image"
+import MenuLink from "./menuLink/menuLink"
 import styles from "./sidebar.module.css"
 import {
     MdDashboard,
@@ -81,10 +83,28 @@ const menuItems = [
 const Sidebar = () => {
     return (
         <div className={styles.container}>
-            <h3>Menu</h3>
-            <ul>
-                <li>element</li>
+            <div className={styles.user}>
+                <Image src="/next.svg" alt="UserImage" className={styles.userImage} width="50" height="50" />
+                <div className={styles.userDetail}>
+                    <span className={styles.username}>Grace Bisimwa</span>
+                    <span className={styles.userTitle}>Admin</span>
+                </div>
+            </div>
+
+            <ul className={styles.list}>
+                {menuItems.map((cat) => (
+                    <li key={cat.title}>
+                        <span className={styles.cat}>{cat.title}</span>
+                        {cat.list.map(item => (
+                            <MenuLink item={item} key={item.title} />
+                        ))}
+                    </li>
+                ))}
             </ul>
+            <button className={styles.logout}>
+                <MdLogout />
+                Logout
+            </button>
         </div>
     )
 }
