@@ -1,0 +1,7 @@
+.container {
+    padding: 20px;
+    background-color: var(--bgSoft);
+    color: var(--text);
+    border-radius: 10px;
+    margin: 20px 0;
+}
