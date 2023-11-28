@@ -6,6 +6,7 @@ const Transactions = () => {
         <div className={styles.container}>
             <h3 className={styles.title}>Latest Transactions</h3>
             <table className={styles.table}>
+
                 <thead>
                     <tr>
                         <td>Name</td>
