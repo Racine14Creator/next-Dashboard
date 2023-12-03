@@ -41,7 +41,7 @@ const User = async ({ searchParams }) => {
                                 </div>
                             </td>
                             <td>{user.email || "no email@address.rw"}</td>
-                            <td>{user.created_at?.toString()}</td>
+                            <td>{user.created_at?.toString().slice(4, 16)}</td>
                             <td>{user.isAdmin ? "Admin" : "Client"}</td>
                             <td>{user.isActive ? "active" : "passive"}</td>
                             <td>
