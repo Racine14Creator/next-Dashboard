@@ -34,3 +34,4 @@ export const fetchProduct = async (q, page) => {
         throw new Error("Failed to fetch products!")
     }
 }
+
