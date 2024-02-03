@@ -1,9 +1,12 @@
+"use client"
+
 import styles from "@/app/Ui/Dashboard/product/addProduct/addProduct.module.css"
+import { addProduct } from "@/app/lib/actions"
 
 const AddProduct = () => {
     return (
         <div className={styles.container}>
-            <form action="" className={styles.form}>
+            <form action={addProduct} method="post" className={styles.form}>
                 <input type="text" placeholder="Title" name="title" required />
                 <select name="cat" id="cat">
                     <option value="kitchen">Choose a Category</option>

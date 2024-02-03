@@ -1,18 +1,17 @@
-"use client"
+
 import styles from "@/app/Ui/Dashboard/users/idUser.module.css"
-import { fetchUser } from "@/app/lib/data"
+// import { fetchUser } from "@/app/lib/data"
 import Image from "next/image"
 
-const Page = ({ params }) => {
-    const { id } = params
-    const user = fetchUser(id)
+const Page = () => {
+
     return (
         <div className={styles.container}>
             <div className={styles.infoContainer}>
                 <div className={styles.imgContainer}>
                     <Image src="/next.svg" fill />
                 </div>
-                {user.name}
+                Grace Bisimwa
             </div>
             <div className={styles.formContainer}>
                 <form className={styles.form}>

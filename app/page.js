@@ -1,10 +1,9 @@
+import HomePage from "./components/Home/HomePage";
 
 export default function Home() {
   return (
     <div>
-      <div>
-        <h3>Home page</h3>
-      </div>
+      <HomePage />
     </div>
   )
 }

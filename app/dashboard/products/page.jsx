@@ -4,13 +4,14 @@ import Search from "@/app/Ui/Dashboard/search/search"
 import Image from "next/image"
 import Link from "next/link"
 import { fetchProduct } from "@/app/lib/data"
+import { deleteProduct } from "@/app/lib/actions"
 
 const Products = async ({ searchParams }) => {
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
 
     const { count, products } = await fetchProduct(q, page)
-    console.log(products)
+    // console.log(products)
     return (
         <div className={styles.container}>
             <div className={styles.top}>
@@ -43,7 +44,7 @@ const Products = async ({ searchParams }) => {
                             </td>
                             <td>{product.desc}</td>
                             <td>$ {product.price}</td>
-                            <td>{product.createdAt.toString().splice(4, 16)}</td>
+                            <td>{product.createdAt?.toString().slice(4, 16)}</td>
                             <td>{product.color}</td>
                             <td>{product.size}</td>
                             <td>
@@ -51,7 +52,10 @@ const Products = async ({ searchParams }) => {
                                     <Link href={`/dashboard/products/${product._id}`}>
                                         <button className={`${styles.button} ${styles.view}`}>View</button>
                                     </Link>
-                                    <button className={`${styles.button} ${styles.delete}`}>Delete</button>
+                                    <form action={deleteProduct}>
+                                        <input type="hidden" name="id" value={`${product._id}`} />
+                                        <button className={`${styles.button} ${styles.delete}`}>Delete</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
