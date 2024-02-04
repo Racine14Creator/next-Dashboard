@@ -41,9 +41,11 @@
     padding: 20px;
     border: 2px solid #2e374a;
     border-radius: 5px;
+    color: var(--white);
     background-color: var(--bg);
     outline: none;
     margin: 10px 0px;
+    font-size: 20px;
 }
 
 .form label {

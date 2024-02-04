@@ -1,41 +1,44 @@
 
 import styles from "@/app/Ui/Dashboard/users/idUser.module.css"
-// import { fetchUser } from "@/app/lib/data"
+import { fetchUser, updateUser } from "@/app/lib/actions"
 import Image from "next/image"
 
-const Page = () => {
-
+const Page = async ({ params }) => {
+    const { id } = params
+    const user = await fetchUser(id)
+    // console.log(user)
     return (
         <div className={styles.container}>
             <div className={styles.infoContainer}>
                 <div className={styles.imgContainer}>
-                    <Image src="/next.svg" fill />
+                    <Image src={user.img || "/astronaute-no-bg.png"} fill />
                 </div>
-                Grace Bisimwa
+                {user.username}
             </div>
             <div className={styles.formContainer}>
-                <form className={styles.form}>
+                <form action={updateUser} className={styles.form}>
+                    <input type="hidden" name="id" value={(user.id)} className="styles input" />
                     <label>Username</label>
-                    <input type="text" name="username" id="username" placeholder="Grace Bisimwa" />
+                    <input type="text" name="username" id="username" placeholder={`${user.username ? user.username : 'Anonyme'}`} />
+
                     <label>Email</label>
-                    <input type="email" name="email" id="username" placeholder="exemple: gracebisimwa@gmail.com" />
-                    <label>Password</label>
-                    <input type="password" name="password" id="password" placeholder="Password" />
-                    <label>Username</label>
-                    <input type="text" name="phone" id="phone" placeholder="+24397353543" />
+                    <input type="email" name="email" id="username" placeholder={`${user.email ? user.email : 'Anonyme@email.com'}`} />
+
+                    <label>Phone number</label>
+                    <input type="text" name="phone" placeholder={`${user.phone ? user.phone : '+00 784545831'}`} id="phone" />
 
                     <label>Address</label>
-                    <textarea name="address" placeholder="New York"></textarea>
+                    <textarea name="address" placeholder={`${user.adress ? user.adress : 'Anonyme adress'}`}></textarea>
 
                     <label>Is admin</label>
                     <select name="isAdmin" id="isAdmin">
-                        <option value={true}>Yes</option>
-                        <option value={false}>No</option>
+                        <option value={true} selected={!user.isAdmin}>Yes</option>
+                        <option value={false} selected={!user.isAdmin}>No</option>
                     </select>
                     <label>Is Active</label>
-                    <select name="isAdmin" id="isActive">
-                        <option value={true}>Yes</option>
-                        <option value={false}>No</option>
+                    <select name="isActive" id="isActive">
+                        <option value={true} selected={user.isActive}>Yes</option>
+                        <option value={false} selected={!user.isActive}>No</option>
                     </select>
                     <button type="submit" className={styles.button}>Update</button>
                 </form>

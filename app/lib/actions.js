@@ -55,6 +55,7 @@ export const addProduct = async (formData) => {
     revalidatePath("/dashboard/products");
     redirect("/dashboard/products");
 }
+
 export const deleteProduct = async (formData) => {
     const { id } = Object.fromEntries(formData)
 
@@ -68,12 +69,53 @@ export const deleteProduct = async (formData) => {
 }
 export const deleteUser = async (formData) => {
     const { id } = Object.fromEntries(formData)
-
     try {
         connectToDb();
         await User.findByIdAndDelete(id)
     } catch (error) {
-        return NextResponse.json({ message: 'Failed to register user' }, { status: 500 })
+        return NextResponse.json(
+            { message: 'Failed to register user' },
+            { status: 500 }
+        )
     }
     revalidatePath("/dashboard/users");
+}
+
+export const fetchUser = async (id) => {
+    try {
+        connectToDb();
+        const user = await User.findById(id)
+        return user
+    } catch (error) {
+        return NextResponse.json({ message: 'Failed to register user' }, { status: 500 })
+    }
+}
+
+export const updateUser = async (formData) => {
+    const { id, username, email, password, phone, address, isAdmin, isActive } = Object.fromEntries(formData)
+    try {
+        connectToDb();
+        const updateFileds = {
+            username, email, password, phone, address, isAdmin, isActive
+        }
+
+        Object.keys(updateFileds).forEach(
+            (key) => (updateFileds[key] === '' || undefined) && delete updateFileds[key]
+        )
+        await User.findByIdAndUpdate(id, updateFileds)
+    } catch (error) {
+        return NextResponse.json({ message: 'Failed to fetch User' }, { status: 500 })
+    }
+    revalidatePath('/dashboard/users')
+    redirect('/dashboard/users')
+}
+
+export const fetchProduct = async (id) => {
+    try {
+        connectToDb();
+        const product = await Product.findById(id)
+        return product
+    } catch (error) {
+        return NextResponse.json({ message: 'Failed to register user' }, { status: 500 })
+    }
 }

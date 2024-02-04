@@ -33,7 +33,8 @@ const userSchema = new mongoose.Schema({
     },
     address: {
         type: String,
-    }
+    },
+
 }, { timestamps: true })
 
 const productSchema = new mongoose.Schema({
