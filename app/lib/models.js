@@ -68,5 +68,12 @@ const productSchema = new mongoose.Schema({
     },
 }, { timestamps: true })
 
+const transactionSchema = new mongoose.Schema({
+    username: { type: String, required: true },
+    amount: { type: Number, required: true },
+    status: { type: String, required: true },
+}, { timestamps: true })
+
 export const User = mongoose.models.User || mongoose.model("User", userSchema)
+export const Transaction = mongoose.models.Transaction || mongoose.model("Transaction", transactionSchema)
 export const Product = mongoose.models.Product || mongoose.model("Product", productSchema)
