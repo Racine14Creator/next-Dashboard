@@ -62,3 +62,13 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    margin: 5px 0;
+    border-bottom: 1px solid teal;
+}

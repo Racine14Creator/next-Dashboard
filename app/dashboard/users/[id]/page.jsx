@@ -13,8 +13,24 @@ const Page = async ({ params }) => {
                 <div className={styles.imgContainer}>
                     <Image src={user.img || "/astronaute-no-bg.png"} fill />
                 </div>
-                {user.username}
+                <p className={styles.list}>
+                    <span>Username: </span>
+                    {user.username}
+                </p>
+                <p className={styles.list}>
+                    <span>Email: </span>
+                    {user.email}
+                </p>
+                <p className={styles.list}>
+                    <span>Address: </span>
+                    {user.address ? user.address : 'Anonyme Address'}
+                </p>
+                <p className={styles.list}>
+                    <span>User Level: </span>
+                    {user.isAdmin ? 'Admin' : 'Client'}
+                </p>
             </div>
+
             <div className={styles.formContainer}>
                 <form action={updateUser} className={styles.form}>
                     <input type="hidden" name="id" value={(user.id)} className="styles input" />
@@ -28,7 +44,7 @@ const Page = async ({ params }) => {
                     <input type="text" name="phone" placeholder={`${user.phone ? user.phone : '+00 784545831'}`} id="phone" />
 
                     <label>Address</label>
-                    <textarea name="address" placeholder={`${user.adress ? user.adress : 'Anonyme adress'}`}></textarea>
+                    <textarea name="address" placeholder={`${user.address ? user.address : 'Anonyme adress'}`}></textarea>
 
                     <label>Is admin</label>
                     <select name="isAdmin" id="isAdmin">
