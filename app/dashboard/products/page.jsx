@@ -10,7 +10,7 @@ const Products = async ({ searchParams }) => {
     const page = searchParams?.page || 1;
 
     const { count, products } = await fetchProduct(q, page)
-    console.log(products)
+    // console.log(products)
     return (
         <div className={styles.container}>
             <div className={styles.top}>
@@ -43,7 +43,7 @@ const Products = async ({ searchParams }) => {
                             </td>
                             <td>{product.desc}</td>
                             <td>$ {product.price}</td>
-                            <td>{product.createdAt.toString().splice(4, 16)}</td>
+                            <td>{product.createdAt.toString().slice(4, 16)}</td>
                             <td>{product.color}</td>
                             <td>{product.size}</td>
                             <td>

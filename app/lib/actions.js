@@ -1,15 +1,26 @@
 "use server"
 
 import { revalidatePath } from "next/cache";
-import { User } from "./models";
-import { connectToDb } from "./utils";
+import { Product, User } from "./models";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
+import { NextResponse } from "next/server";
+import { signIn } from "../auth";
+import { connectToDb } from "./utils";
 
 export const addUser = async (formData) => {
-    const { username, email, password, phone, address, isAdmin, isActive } =
-        Object.fromEntries(formData);
-
+    const {
+        username,
+        email,
+        password,
+        phone,
+        address,
+        isAdmin,
+        isActive } =
+        Object
+            .fromEntries(
+                formData
+            );
     try {
         connectToDb();
 
@@ -35,3 +46,99 @@ export const addUser = async (formData) => {
     revalidatePath("/dashboard/users");
     redirect("/dashboard/users");
 };
+
+export const addProduct = async (formData) => {
+    const { title, cat, price, stock, color, size, desc } = Object.fromEntries(formData)
+
+    if (!title || !cat || !price || !stock || !color || !size || !desc) { return "Empty fields" }
+
+    try {
+        connectToDb();
+
+        const newProduct = new Product({
+            title, cat, price, stock, color, size, desc
+        })
+        await newProduct.save()
+    } catch (error) {
+        return NextResponse.json({ message: 'Failed to register user' }, { status: 200 })
+    }
+    revalidatePath("/dashboard/products");
+    redirect("/dashboard/products");
+}
+
+export const deleteProduct = async (formData) => {
+    const { id } = Object.fromEntries(formData)
+
+    try {
+        connectToDb();
+        await Product.findByIdAndDelete(id)
+    } catch (error) {
+        return NextResponse.json({ message: 'Failed to register product' }, { status: 500 })
+    }
+    revalidatePath("/dashboard/products");
+}
+export const deleteUser = async (formData) => {
+    const { id } = Object.fromEntries(formData)
+    try {
+        connectToDb();
+        await User.findByIdAndDelete(id)
+    } catch (error) {
+        return NextResponse.json(
+            { message: 'Failed to register user' },
+            { status: 500 }
+        )
+    }
+    revalidatePath("/dashboard/users");
+}
+
+export const fetchUser = async (id) => {
+    try {
+        connectToDb();
+        const user = await User.findById(id)
+        return user
+    } catch (error) {
+        return NextResponse.json({ message: 'Failed to register user' }, { status: 500 })
+    }
+}
+
+export const updateUser = async (formData) => {
+    const { id, username, email, password, phone, address, isAdmin, isActive } = Object.fromEntries(formData)
+    try {
+        connectToDb();
+        const updateFileds = {
+            username, email, password, phone, address, isAdmin, isActive
+        }
+
+        Object.keys(updateFileds).forEach(
+            (key) => (updateFileds[key] === '' || undefined) && delete updateFileds[key]
+        )
+        await User.findByIdAndUpdate(id, updateFileds)
+    } catch (error) {
+        return NextResponse.json({ message: 'Failed to fetch User' }, { status: 500 })
+    }
+    revalidatePath('/dashboard/users')
+    redirect('/dashboard/users')
+}
+
+export const fetchProduct = async (id) => {
+    try {
+        connectToDb();
+        const product = await Product.findById(id)
+        return product
+    } catch (error) {
+        return NextResponse.json({ message: 'Failed to register user' }, { status: 500 })
+    }
+}
+
+// Login
+
+export const authenticate = async (formData) => {
+    const { username, password } = Object.fromEntries(formData)
+    console.log(formData)
+    try {
+        await signIn("credentials", { username, password })
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
