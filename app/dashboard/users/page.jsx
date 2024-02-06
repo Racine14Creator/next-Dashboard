@@ -5,20 +5,21 @@ import { deleteUser } from "@/app/lib/actions"
 import { fetchUsers } from "@/app/lib/data"
 import Image from "next/image"
 import Link from "next/link"
+import { MdVerifiedUser } from "react-icons/md"
 
 const User = async ({ searchParams }) => {
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
 
     const { count, users } = await fetchUsers(q, page);
-    console.log(users);
+    // console.log(users);
 
     return (
         <div className={styles.container}>
             <div className={styles.top}>
                 <Search placeholder="Search for a user..." />
                 <Link href="/dashboard/users/add">
-                    <button className={styles.addButton}>Add new</button>
+                    <button className={styles.addButton}><MdVerifiedUser /> Add new</button>
                 </Link>
             </div>
             <table className={styles.table}>

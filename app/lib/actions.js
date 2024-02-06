@@ -6,6 +6,7 @@ import { connectToDb } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
+import { signIn } from "../auth";
 
 export const addUser = async (formData) => {
     const { username, email, password, phone, address, isAdmin, isActive } =
@@ -117,5 +118,18 @@ export const fetchProduct = async (id) => {
         return product
     } catch (error) {
         return NextResponse.json({ message: 'Failed to register user' }, { status: 500 })
+    }
+}
+
+// Login
+
+export const authenticate = async (formData) => {
+    const { username, password } = Object.fromEntries(formData)
+    // console.log(formData)
+    try {
+        await signIn("credentials", { username, password })
+    } catch (error) {
+        console.log(error)
+        throw error
     }
 }
