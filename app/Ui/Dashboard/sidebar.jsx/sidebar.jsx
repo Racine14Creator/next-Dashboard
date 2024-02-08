@@ -16,6 +16,7 @@ import {
     MdLogout
 } from "react-icons/md"
 import { auth, signOut } from "@/app/auth"
+import Link from "next/link"
 
 
 const menuItems = [
@@ -89,7 +90,11 @@ const Sidebar = async () => {
             <div className={styles.user}>
                 <Image src={session.user.profile || "/astronaute-no-bg.png"} alt="UserImage" className={styles.userImage} width="50" height="50" />
                 <div className={styles.userDetail}>
-                    <span className={styles.username}>{session.user.username || 'Anonyme Username'}</span>
+                    <Link href={`/dashboard/profile`}>
+                        <span className={styles.username}>
+                            {session.user.username || 'Anonyme Username'}
+                        </span>
+                    </Link>
                     <span className={styles.userTitle}>{session.user.isAdmin ? 'Admin' : 'Client'}</span>
                 </div>
             </div>
