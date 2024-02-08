@@ -82,16 +82,15 @@ const menuItems = [
 ]
 
 const Sidebar = async () => {
-    const user = await auth()
-    console.log(user)
-
+    const session = await auth()
+    // console.log(session)
     return (
         <div className={styles.container}>
             <div className={styles.user}>
-                <Image src={user.profile || "/astronaute-no-bg.png"} alt="UserImage" className={styles.userImage} width="50" height="50" />
+                <Image src={session.user.profile || "/astronaute-no-bg.png"} alt="UserImage" className={styles.userImage} width="50" height="50" />
                 <div className={styles.userDetail}>
-                    <span className={styles.username}>{user.username || 'Anonyme Username'}</span>
-                    <span className={styles.userTitle}>{user.isAdmin ? 'Admin' : 'Client'}</span>
+                    <span className={styles.username}>{session.user.username || 'Anonyme Username'}</span>
+                    <span className={styles.userTitle}>{session.user.isAdmin ? 'Admin' : 'Client'}</span>
                 </div>
             </div>
 

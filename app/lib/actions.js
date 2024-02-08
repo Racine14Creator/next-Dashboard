@@ -134,7 +134,7 @@ export const fetchProduct = async (id) => {
 
 export const authenticate = async (formData) => {
     const { username, password } = Object.fromEntries(formData)
-    console.log(formData)
+    // console.log(formData)
     try {
         await signIn("credentials", { username, password })
     } catch (error) {
