@@ -59,3 +59,23 @@
 .delete {
     background-color: red;
 }
+
+.eventActive,
+.eventDelete {
+    padding: 5px 10px;
+    border-radius: .4rem;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.eventActive {
+    color: var(--text);
+    background-color: rgba(0, 128, 128, 0.247);
+    border: 1px solid teal;
+}
+
+.eventDelete {
+    color: var(--text);
+    background-color: rgba(255, 16, 16, 0.247);
+    border: 1px solid rgb(255, 0, 0);
+}

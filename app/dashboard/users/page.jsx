@@ -1,6 +1,7 @@
 import Pagination from "@/app/Ui/Dashboard/pagination/Pagination"
 import Search from "@/app/Ui/Dashboard/search/search"
 import styles from "@/app/Ui/Dashboard/users/users.module.css"
+import { deleteUser } from "@/app/lib/actions"
 import { fetchUsers } from "@/app/lib/data"
 import Image from "next/image"
 import Link from "next/link"
@@ -41,13 +42,20 @@ const User = async ({ searchParams }) => {
                                 </div>
                             </td>
                             <td>{user.email || "no email@address.rw"}</td>
-                            <td>{user.created_at?.toString().slice(4, 16)}</td>
-                            <td>{user.isAdmin ? "Admin" : "Client"}</td>
+                            <td>{user.createdAt?.toString().slice(4, 16)}</td>
+                            <td>
+                                {user.isAdmin ?
+                                    (<span className={styles.eventActive}>Admin</span>) :
+                                    (<span className={styles.eventDelete}>Client</span>)}
+                            </td>
                             <td>{user.isActive ? "active" : "passive"}</td>
                             <td>
                                 <div className={styles.buttons}>
                                     <Link href={`/dashboard/users/${user._id}`}><button className={`${styles.button} ${styles.view}`}>View</button></Link>
-                                    <button className={`${styles.button} ${styles.delete}`}>Delete</button>
+                                    <form action={deleteUser}>
+                                        <input type="hidden" name="id" value={user.id} className="input" />
+                                        <button className={`${styles.button} ${styles.delete}`}>Delete</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

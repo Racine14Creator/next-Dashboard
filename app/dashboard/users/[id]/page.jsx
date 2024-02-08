@@ -17,6 +17,7 @@ const Page = async ({ params }) => {
             </div>
             <div className={styles.formContainer}>
                 <form action={updateUser} className={styles.form}>
+                    <input type="hidden" name="id" value={user.id} className="input" />
                     <label>Username</label>
                     <input type="text" name="username" id="username" placeholder={user.username} />
 
