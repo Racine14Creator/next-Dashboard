@@ -32,13 +32,13 @@ const Page = async ({ params }) => {
 
                     <label>Is admin</label>
                     <select name="isAdmin" id="isAdmin">
-                        <option value={true} selected={user.isAdmin}>Yes</option>
-                        <option value={false} selected={!user.isAdmin}>No</option>
+                        <option value={1} selected={user.isAdmin}>Yes</option>
+                        <option value={0} selected={!user.isAdmin}>No</option>
                     </select>
                     <label>Is Active</label>
-                    <select name="isAdmin" id="isActive">
-                        <option value={true} selected={user.isActive}>Yes</option>
-                        <option value={false} selected={!user.isActive}>No</option>
+                    <select name="isActive" id="isActive">
+                        <option value={1} selected={user.isActive}>Yes</option>
+                        <option value={0} selected={!user.isActive}>No</option>
                     </select>
                     <button type="submit" className={styles.button}><MdPersonPinCircle /> Update</button>
                 </form>

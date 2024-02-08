@@ -48,7 +48,13 @@ const User = async ({ searchParams }) => {
                                     (<span className={styles.eventActive}>Admin</span>) :
                                     (<span className={styles.eventDelete}>Client</span>)}
                             </td>
-                            <td>{user.isActive ? "active" : "passive"}</td>
+                            <td>
+                                {user.isActive ? (
+                                    <span className={styles.eventActive}>Active</span>
+                                ) : (
+                                    <span className={styles.eventDelete}>Offline</span>
+                                )}
+                            </td>
                             <td>
                                 <div className={styles.buttons}>
                                     <Link href={`/dashboard/users/${user._id}`}><button className={`${styles.button} ${styles.view}`}>View</button></Link>
