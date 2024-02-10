@@ -41,7 +41,7 @@ const Products = async ({ searchParams }) => {
                                     {product.title}
                                 </div>
                             </td>
-                            <td>{product.desc}</td>
+                            <td>{product.desc.substring(0, 10)}</td>
                             <td>$ {product.price}</td>
                             <td>{product.createdAt.toString().slice(4, 16)}</td>
                             <td>{product.color}</td>
