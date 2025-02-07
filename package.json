@@ -11,7 +11,8 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "mongoose": "^8.0.1",
-    "next": "14.0.3",
+    "next": "^14.2.16",
+    "next-auth": "^4.24.10",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.11.0",
